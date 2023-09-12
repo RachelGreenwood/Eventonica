@@ -21,7 +21,7 @@ function Events() {
     <div>
     <CardGroup className="Events">
             {events.map(event =>
-            <EventCard key={event.id} title={event.title} location={event.location} time={event.eventtime}/>
+            <EventCard key={event.id} title={event.title} location={event.location} time={event.eventtime} description={event.description}/>
             )}
     </CardGroup>
     </div>
