@@ -1,5 +1,6 @@
 import './App.css';
 import Events from './components/events';
+import Form from './components/form';
 
 function App() {
   return (
