@@ -22,8 +22,8 @@ const Form = (props) => {
                 <input type='text' name='title' required placeholder='Event title' ref={userTitle}></input>
                 <label>Event Location</label>
                 <input type='text' name='location' required placeholder='Where will the event be held' ref={userLocation}></input>
-                <label>Event Date</label>
-                <input type='date' name='date' ref={userDate}></input>
+                <label>Event Date and Time</label>
+                <input type='datetime-local' name='date' ref={userDate}></input>
                 {/* <label>Event Description</label> */}
                 {/* <input type='text' name='description' placeholder='Add details of the event' ref={userDescription}></input> */}
                 <button type='submit'>Submit</button>
