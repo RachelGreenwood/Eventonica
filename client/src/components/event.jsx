@@ -27,7 +27,7 @@ const EventCard = (props) => {
         <Card style={{ width: '18rem' }}>
             <Card.Body>
                 <Card.Title>{props.event.title}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">Date: {props.event.time ? props.event.time : "TBD"}</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted">Date: {props.event.eventtime ? moment(props.event.eventtime).format('MMMM Do, YYYY') : "TBD"}</Card.Subtitle>
                 <Card.Text>
                     Location: {props.event.location}
                 </Card.Text>
