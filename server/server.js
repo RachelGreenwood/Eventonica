@@ -54,21 +54,17 @@ app.post("/events", async (req, res) => {
 });
 
 // delete an event
-// app.delete("/event/:eventid", async (req, res) => {
-//   try {
-//     const { eventid } = req.params;
-//     const deleteEvent = await db.one(
-//       "DELETE FROM events WHERE eventid = $1 RETURNING *;",
-//       eventid
-//     );
-//     console.log(deleteEvent);
-//     res.json({ success: true, message: "Event was deleted!" });
-//   } catch (e) {
-//     console.error(e);
-//     res.status(500);
-//     res.render("error", { error: e });
-//   }
-// });
+app.delete("/events/:id", async (req, res) => {
+  try {
+    const eventId = req.params.id;
+    const deleteOperation = await db.query("DELETE FROM events WHERE id=$1", [eventId]);
+    console.log(deleteOperation);
+    res.status(200).end();
+  } catch (e) {
+    console.error(e);
+    res.status(400).json({e});
+  }
+});
 
     //hardcode the events response for testing reasons. This call has one more event that the real DB 
     // try{
