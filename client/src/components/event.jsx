@@ -1,9 +1,26 @@
 import Card from 'react-bootstrap/Card';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import moment from 'moment';
 
 const EventCard = (props) => {
 
     const handleDelete = () => {
         const idToDelete = props.event.id;
+        confirmAlert({
+            title: "Confirm to Delete Event",
+            message: `Are you sure you want to delete ${props.event.title}?`,
+            buttons: [
+                {
+                    label: "Yes",
+                    onClick: () => props.onDelete(idToDelete)
+                },
+                {
+                    label: "No",
+                    onClick: () => console.log("Click no")
+                }
+            ]
+        });
     }
 
     return (
