@@ -46,7 +46,7 @@ const EventCard = (props) => {
     }
 
     return (
-        <Card style={{ width: '18rem' }}>
+        <Card className='card' style={{ width: '18rem' }}>
             <Card.Body>
                 <Card.Title>{isEditing ? (<input type='text' name='title' value={editedEvent.title} onChange={(e) => handleInputChange(e)}></input>) : (editedEvent.title)}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">Date: {props.event.eventtime ? moment(props.event.eventtime).format('MMMM Do, YYYY') : "TBD"}</Card.Subtitle>

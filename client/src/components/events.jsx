@@ -54,6 +54,9 @@ const handleEditEvent = (editedEvent) => {
     body: JSON.stringify(editedEvent)
   })
   .then((response) => response.json())
+  .then(() => {
+    getRequest();
+  })
   .catch((error) => {
     console.error("Error updating event: ", error);
   })
