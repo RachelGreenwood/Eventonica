@@ -66,23 +66,29 @@ app.delete("/events/:id", async (req, res) => {
   }
 });
 
-    //hardcode the events response for testing reasons. This call has one more event that the real DB 
-    // try{
-    //     const events = [
-
-    //         {id: 1, title: 'Women in Tech Techtonica Panel', location: 'Overland Park Convention Center'},
-    //         {id: 2, title: 'Japanese Cultural Education', location: 'Seattle Convention Center'},
-    //         {id: 3, title: "Haven 90's Party Night Club", location: 'Hilton Hotel Kansas City'},
-    //         {id: 4, title: 'Comedy Night at the Station', location: 'SF Hilton Hotel'},
-    //         {id: 5, title: 'A Decadent Arts Experience', location: 'West Ridge Mall'},
-    //         {id: 6, title: 'Techtonica Classroom Course', location: 'Techtonica HQ'}
-    //       ];
-    //     res.json(events);
-
-    // } catch(error){
-    //     console.log(error);
-    // }   
+// Update an event
+app.put("/events/:id", async (req, res) => {
+  try {
+    const eventId = req.params.id;
+    const { title, location, eventtime, description } = req.body;
     
+    const result = await db.query(
+      "UPDATE events SET title = $1, location = $2, eventtime = $3, description = $4 WHERE id = $5 RETURNING *",
+      [title, location, eventtime, description, eventId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Event not found" });
+    }
+
+    let updatedEvent = result.rows[0];
+    console.log(updatedEvent);
+    res.json(updatedEvent);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ err });
+  }
+});  
 })
 
 

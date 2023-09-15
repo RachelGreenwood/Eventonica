@@ -3,9 +3,14 @@ import EventCard from "./event";
 import CardGroup from 'react-bootstrap/CardGroup';
 import Form from './form';
 
-
 function Events() {
     const [events, setEvents] = useState([]);
+    const [data, setData] = useState("");
+    const [newEvent, setNewEvent] = useState("");
+
+    const handleInputChange = (childData) => {
+      setData(childData)
+    }
 
     const getRequest = () => {
       fetch("http://localhost:8080/events")
@@ -26,7 +31,7 @@ function Events() {
     .then((reponse) => reponse.json())
     .then((data) => {
       console.log("Inside the post line 28", data)
-      setEvents([...events, data])
+      setEvents([...events, data]);
     })
 }
 
@@ -40,14 +45,29 @@ const handleDeleteRequest = (id) => {
   })
 }
 
+const handleEditEvent = (editedEvent) => {
+  fetch(`http://localhost:8080/events/${editedEvent.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(editedEvent)
+  })
+  .then((response) => response.json())
+  .catch((error) => {
+    console.error("Error updating event: ", error);
+  })
+}
+
     useEffect(() => {getRequest()}, []);
 
   return (
     <>
-      <div>
+      <div data-testid='events'>
+        {data}
       <CardGroup className="Events">
-              {events.map(event =>
-              <EventCard key={event.id} event={event} onDelete={handleDeleteRequest}/>
+              {events.map((event) =>
+              <EventCard key={event.id} event={event} setEvents={setEvents} handleInputChange={handleInputChange} onDelete={handleDeleteRequest} onSave={handleEditEvent}/>
               )}
       </CardGroup>
       </div>
