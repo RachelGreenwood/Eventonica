@@ -18,6 +18,8 @@ const EventCard = (props) => {
     }
 
     const handleSaveClick = () => {
+        const eventtimeString = moment(editedEvent.eventtime).format('YYYY-MM-DDTHH:mm');
+        setEditedEvent({...editedEvent, eventtime: eventtimeString})
         props.onSave(editedEvent);
         setIsEditing(false);
     }
@@ -49,11 +51,11 @@ const EventCard = (props) => {
         <Card className='card' style={{ width: '18rem' }}>
             <Card.Body>
                 <Card.Title>{isEditing ? (<input type='text' name='title' value={editedEvent.title} onChange={(e) => handleInputChange(e)}></input>) : (editedEvent.title)}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">Date: {props.event.eventtime ? moment(props.event.eventtime).format('MMMM Do, YYYY') : "TBD"}</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted">{isEditing ? (<input type='datetime-local' name='eventtime' value={moment(editedEvent.eventtime).format('YYYY-MM-DDHH:mm')} onChange={(e) => handleInputChange(e)}></input>) : (moment(editedEvent.eventtime).format('MMMM Do, YYYY'))}</Card.Subtitle>
                 <Card.Text>
-                    Location: {isEditing ? (<input type='text' name='location' value={props.event.location} onChange={() => handleInputChange(data)}></input>) : (props.event.location)}
+                    Location: {isEditing ? (<input type='text' name='location' value={editedEvent.location} onChange={(e) => handleInputChange(e)}></input>) : (editedEvent.location)}
                 </Card.Text>
-                <Card.Text>Description: {" "} {isEditing ? (<input type='text' name='description' value={props.event.description} onChange={() => handleInputChange(data)}></input>) : (props.event.description)}</Card.Text>
+                <Card.Text>Description: {isEditing ? (<input type='text' name='description' value={editedEvent.description} onChange={(e) => handleInputChange(e)}></input>) : (editedEvent.description)}</Card.Text>
                 {isEditing ? (<>
                     <button onClick={handleSaveClick}>Save</button>
                     <button onClick={handleCancelClick}>Cancel</button>
